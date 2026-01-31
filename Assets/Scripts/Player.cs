@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private bool _maskOnFace = false;
 
     public event Action<bool> MaskState; 
-    private bool _isEating; 
+    public event bool isEating; 
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Inputs.Instance.MaskOn.IsPressed() && !_isEating && !_maskOnFace)
+        if (Inputs.Instance.MaskOn.IsPressed() && !isEating && !_maskOnFace)
         {
             _maskOnFace = true;
             MaskOn();
@@ -54,16 +54,17 @@ public class Player : MonoBehaviour
         MaskState?.Invoke(false);
     }
     
-    private void Eat()
+    private void EatIn()
     {
-        _isEating = true;
-        Debug.Log("StartEating");
-        _animator.Play("EatFull", 0, 0f);
+        Debug.Log("Eating");
+        _animator.Play("EatIn");
+        isEating = true;
     }
 
-    private void StopEating()
+    private void EatOut()
     {
         Debug.Log("StopEating");
-        _isEating = false;
+        _animator.Play("EatOut");
+        isEating = false;
     }
 }
