@@ -16,14 +16,6 @@ public class SoundsSpawner
 	public bool PlayRandomSound()
 	{
 		bool useCoughSounds = Random.Range(0, 2) == 0;
-
-		if (useCoughSounds)
-		{
-			Debug.Log("CoughSound!");
-		} else
-		{
-			Debug.Log("Random sound");
-		}
 		Sound[] chosenArray = useCoughSounds ? SoundData.CoughSounds : SoundData.RandomSounds;
 		
 		int index = Random.Range(0, chosenArray.Length);
