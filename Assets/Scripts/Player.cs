@@ -33,19 +33,10 @@ public class Player : MonoBehaviour
             MaskOff();
         }
 
-        if (Inputs.Instance.Eat.IsPressed())
+        if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
         {
-            Debug.Log($"isEating {_isEating}");
-            Debug.Log($"mask on face { _maskOnFace }");
-            if (!_isEating && !_maskOnFace)
-            {
-                Eat();
-            }
+            Eat();
         }
-        // if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
-        // {
-        //     Eat();
-        // }
         
     }
 
@@ -74,6 +65,5 @@ public class Player : MonoBehaviour
     {
         Debug.Log("StopEating");
         _isEating = false;
-        Debug.Log($"_isEating = {_isEating}");
     }
 }
