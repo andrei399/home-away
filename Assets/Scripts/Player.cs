@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.TextCore;
 
 public class Player : MonoBehaviour
 {
@@ -8,15 +10,17 @@ public class Player : MonoBehaviour
     private bool _maskOnFace = false;
 
     public event Action<bool> MaskState; 
+    private bool _isEating; 
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        EatAnimationManager.OnEatingAnimationEnd += StopEating;
     }
 
     private void Update()
     {
-        if (Inputs.Instance.MaskOn.IsPressed() && !_maskOnFace)
+        if (Inputs.Instance.MaskOn.IsPressed() && !_isEating && !_maskOnFace)
         {
             _maskOnFace = true;
             MaskOn();
@@ -28,6 +32,20 @@ public class Player : MonoBehaviour
             _maskOnFace = false;
             MaskOff();
         }
+
+        if (Inputs.Instance.Eat.IsPressed())
+        {
+            Debug.Log($"isEating {_isEating}");
+            Debug.Log($"mask on face { _maskOnFace }");
+            if (!_isEating && !_maskOnFace)
+            {
+                Eat();
+            }
+        }
+        // if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
+        // {
+        //     Eat();
+        // }
         
     }
 
@@ -43,5 +61,19 @@ public class Player : MonoBehaviour
         Debug.Log("Mask Off!");
         _animator.Play("MaskOFF");
         MaskState?.Invoke(false);
+    }
+    
+    private void Eat()
+    {
+        _isEating = true;
+        Debug.Log("StartEating");
+        _animator.Play("EatFull", 0, 0f);
+    }
+
+    private void StopEating()
+    {
+        Debug.Log("StopEating");
+        _isEating = false;
+        Debug.Log($"_isEating = {_isEating}");
     }
 }
