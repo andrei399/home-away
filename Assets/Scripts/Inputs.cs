@@ -7,6 +7,7 @@ public sealed class Inputs
 	
 	private InputSystem_Actions _inputSystem;
 	public InputAction MaskOn;
+	public InputAction Eat;
 
 	private Inputs()
 	{
@@ -17,5 +18,7 @@ public sealed class Inputs
 		_inputSystem = new InputSystem_Actions();
 		MaskOn = _inputSystem.Player.MaskOn;
 		MaskOn.Enable();
+		Eat = _inputSystem.Player.Eat;
+		Eat.Enable();
 	}
 }
