@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private CovidProgressBar _covidProgressBar;
 
+	[SerializeField]
+	private FoodVirusProgressBar _foodVirusProgressBar;
+
 	private void Awake()
 	{
 		_covidProgressBar.OnProgressBarFilled += HandleCovidBarFull;
