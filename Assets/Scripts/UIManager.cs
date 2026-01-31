@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private FoodVirusProgressBar _foodVirusProgressBar;
 
+	[SerializeField]
+	private GameObject _mainMenu;
+
 	private void Awake()
 	{
 		_covidProgressBar.OnProgressBarFilled += TriggerGameOver;
@@ -42,6 +45,18 @@ public class UIManager : MonoBehaviour
 	public void IncreaseFoodVirusAmount()
 	{
 		_foodVirusProgressBar.IncreaseBar(0.7f);
+	}
+	
+	public void StartGame()
+	{
+		_mainMenu.SetActive(false);
+
+		GameManager.Instance.Retry();
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
 	}
 
 	public void RetryPressed()
