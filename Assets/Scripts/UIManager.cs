@@ -36,12 +36,12 @@ public class UIManager : MonoBehaviour
 
 	public void IncreaseCovidAmount()
 	{
-		_covidProgressBar.IncreaseBar(0.7f);
+		_covidProgressBar.IncreaseBar(0.25f);
 	}
 
 	public void IncreaseFoodVirusAmount()
 	{
-		_foodVirusProgressBar.IncreaseBar(0.7f);
+		_foodVirusProgressBar.IncreaseBar(0.1f);
 	}
 
 	public void RetryPressed()
