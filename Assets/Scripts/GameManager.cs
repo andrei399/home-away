@@ -59,6 +59,12 @@ public class GameManager : MonoBehaviour
         _gameRunning = false;
     }
 
+    public void WinGame()
+    {
+        Debug.Log("WIN GAME :PARTY:");
+        _gameRunning = false;
+    }
+
     public void Retry()
     {
         _gameRunning = true;

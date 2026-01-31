@@ -20,7 +20,7 @@ public class FoodManager : MonoBehaviour
     {
         if (meatCubes.Count == 0)
         {
-            // Win thingy.
+            GameManager.Instance.WinGame();
         }
     }
 
