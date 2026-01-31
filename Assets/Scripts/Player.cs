@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     private bool _maskOnFace = false;
 
     public event Action<bool> MaskState; 
-    private bool _isEating; 
 
     private void Awake()
     {
@@ -19,6 +18,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.GameRunning)
+        {
+            return;
+        }
+
         if (Inputs.Instance.MaskOn.IsPressed() && !FoodManager.Instance.isEating && !_maskOnFace)
         {
             _maskOnFace = true;

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => s_Instance ??= FindFirstObjectByType<GameManager>();
 
     private bool _gameRunning = false;
+    public bool GameRunning => _gameRunning;
     
     [SerializeField]
     private Player _player;
