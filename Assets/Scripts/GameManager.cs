@@ -59,10 +59,17 @@ public class GameManager : MonoBehaviour
         _gameRunning = false;
     }
 
+    public void WinGame()
+    {
+        Debug.Log("WIN GAME :PARTY:");
+        _gameRunning = false;
+    }
+
     public void Retry()
     {
         _gameRunning = true;
         _soundSpawnInterval = Random.Range(2f, 6f);
+        FoodManager.Instance.ResetFood();
         _timer = 0;
     }
     
@@ -74,6 +81,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator TimeToPutMaskOn()
     {
         yield return new WaitForSeconds(_putMaskOnInterval);
+        UIManager.Instance.IncreaseFoodVirusAmount();
         if (_isMaskOn)
         {
             Debug.Log("Mask was on, nice job!");
