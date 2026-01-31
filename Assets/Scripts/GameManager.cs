@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private static GameManager s_Instance;
     public static GameManager Instance => s_Instance ??= FindFirstObjectByType<GameManager>();
 
-    private bool _gameRunning = true;
+    private bool _gameRunning = false;
     
     [SerializeField]
     private Player _player;
