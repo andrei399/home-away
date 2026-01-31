@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.TextCore;
 
 public class Player : MonoBehaviour
 {
@@ -8,16 +10,17 @@ public class Player : MonoBehaviour
     private bool _maskOnFace = false;
 
     public event Action<bool> MaskState; 
-    public event bool isEating; 
+    private bool _isEating; 
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        EatAnimationManager.OnAnimationEnd += HandleAnimationSequence;
     }
 
     private void Update()
     {
-        if (Inputs.Instance.MaskOn.IsPressed() && !isEating && !_maskOnFace)
+        if (Inputs.Instance.MaskOn.IsPressed() && !_isEating && !_maskOnFace)
         {
             _maskOnFace = true;
             MaskOn();
@@ -28,6 +31,12 @@ public class Player : MonoBehaviour
         {
             _maskOnFace = false;
             MaskOff();
+        }
+
+        if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
+        {
+            Eat();
+            return;
         }
         
     }
@@ -46,17 +55,35 @@ public class Player : MonoBehaviour
         MaskState?.Invoke(false);
     }
     
+    private void Eat()
+    {
+        EatIn();
+        Debug.Log("StopEating");
+    }
+    
     private void EatIn()
     {
         Debug.Log("Eating");
-        _animator.Play("EatIn");
-        isEating = true;
+        _isEating = true;
+        _animator.Play("EatCameraDown");
     }
 
-    private void EatOut()
+    private void HandleAnimationSequence(string animationName)
     {
-        Debug.Log("StopEating");
-        _animator.Play("EatOut");
-        isEating = false;
+        switch (animationName)
+        {
+            case "EatCameraDown":
+                _animator.Play("EatIn");
+                break; 
+            case "EatIn":
+                _animator.Play("EatOut");
+                break; 
+            case "EatOut":
+                _animator.Play("EatCameraUp");
+                break; 
+            case "EatCameraUp":
+                _isEating = false;
+                break;
+        }
     }
 }
