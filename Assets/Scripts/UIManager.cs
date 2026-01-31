@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -17,6 +18,14 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private GameObject _mainMenu;
 
+	[SerializeField]
+	private TMP_Text _endScreenTitle;
+
+	[SerializeField]
+	private TMP_Text _endScreenBody;
+
+	private bool _won;
+
 	private void Awake()
 	{
 		_covidProgressBar.OnProgressBarFilled += TriggerGameOver;
@@ -33,6 +42,8 @@ public class UIManager : MonoBehaviour
 	private void TriggerGameOver()
 	{
 		GameManager.Instance.GameOver();
+		_endScreenTitle.SetText("Unfortunate :( you got the damn virus.");
+		_endScreenBody.SetText("Your abuelita is going to miss you while you're in quarantine.\n Pay 50 robux for quick heal and try again?");
 		_uiAnimator.Play("GameOverFadeIn");
 		Debug.Log("GAME OVER!");
 	}
@@ -66,5 +77,12 @@ public class UIManager : MonoBehaviour
 		_foodVirusProgressBar.ResetBar();
 		_uiAnimator.Play("GameOverFadeOut");
 		GameManager.Instance.Retry();
+	}
+
+	public void TriggerGameWon()
+	{
+		_endScreenTitle.SetText("Congratulations! You finished your meal.");
+		_endScreenBody.SetText("You can now go back to your abuelita and keep her safe <3 ! \n Try another meal in these hard times?");
+		_uiAnimator.Play("GameOverFadeIn");
 	}
 }

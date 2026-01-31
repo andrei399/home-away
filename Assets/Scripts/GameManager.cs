@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("WIN GAME :PARTY:");
         _gameRunning = false;
+        UIManager.Instance.TriggerGameWon();
     }
 
     public void Retry()
