@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AmbientMusic : MonoBehaviour
 {
+	private static AmbientMusic s_Instance;
+	public static AmbientMusic Instance => s_Instance ??= FindFirstObjectByType<AmbientMusic>();
 	[SerializeField]
 	private AudioClip[] _clips;
 
@@ -12,10 +14,9 @@ public class AmbientMusic : MonoBehaviour
 	private void Awake()
 	{
 		_audioSource = GetComponent<AudioSource>();
-		StartCoroutine(PlayAudioSequentially());
 	}
 
-	private IEnumerator PlayAudioSequentially()
+	public IEnumerator PlayAudioSequentially()
 	{
 		yield return null;
 

@@ -13,6 +13,9 @@ namespace Data
 
 		[field: SerializeField]
 		public AudioClip EatingSound;
+
+		[field: SerializeField]
+		public AudioClip BackgroundSound;
 	}
 }
 

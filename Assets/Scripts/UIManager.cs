@@ -50,8 +50,8 @@ public class UIManager : MonoBehaviour
 	public void StartGame()
 	{
 		_mainMenu.SetActive(false);
-
 		GameManager.Instance.Retry();
+		StartCoroutine(AmbientMusic.Instance.PlayAudioSequentially());
 	}
 
 	public void Quit()

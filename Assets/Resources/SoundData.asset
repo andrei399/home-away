@@ -51,3 +51,4 @@ MonoBehaviour:
   - SoundType: 1
     SoundClip: {fileID: 8300000, guid: 1176e94278c9d4e45889654b40021ba3, type: 3}
   EatingSound: {fileID: 8300000, guid: bc73e110bf36c4c4d961c934a612eb6c, type: 3}
+  BackgroundSound: {fileID: 8300000, guid: a32cfe71100676a4b977bcee8998ceb6, type: 3}
