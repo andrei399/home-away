@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     {
         _gameRunning = true;
         _soundSpawnInterval = Random.Range(2f, 6f);
+        FoodManager.Instance.ResetFood();
         _timer = 0;
     }
     
