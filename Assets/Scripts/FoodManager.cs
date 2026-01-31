@@ -14,6 +14,7 @@ public class FoodManager : MonoBehaviour
         };
 
         EatAnimationManager.OnEatingAnimationEnd += WinIfNoFoodRemains;
+        EatAnimationManager.OnEatingAnimationEnter += TakeBite;
     }
 
     public void WinIfNoFoodRemains()
