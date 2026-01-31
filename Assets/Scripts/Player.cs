@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        EatAnimationManager.OnAnimationEnd += HandleAnimationSequence;
+        EatAnimationManager.OnEatingAnimationEnd += StopEating;
     }
 
     private void Update()
@@ -33,11 +33,19 @@ public class Player : MonoBehaviour
             MaskOff();
         }
 
-        if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
+        if (Inputs.Instance.Eat.IsPressed())
         {
-            Eat();
-            return;
+            Debug.Log($"isEating {_isEating}");
+            Debug.Log($"mask on face { _maskOnFace }");
+            if (!_isEating && !_maskOnFace)
+            {
+                Eat();
+            }
         }
+        // if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
+        // {
+        //     Eat();
+        // }
         
     }
 
@@ -57,33 +65,15 @@ public class Player : MonoBehaviour
     
     private void Eat()
     {
-        EatIn();
-        Debug.Log("StopEating");
-    }
-    
-    private void EatIn()
-    {
-        Debug.Log("Eating");
         _isEating = true;
-        _animator.Play("EatCameraDown");
+        Debug.Log("StartEating");
+        _animator.Play("EatFull", 0, 0f);
     }
 
-    private void HandleAnimationSequence(string animationName)
+    private void StopEating()
     {
-        switch (animationName)
-        {
-            case "EatCameraDown":
-                _animator.Play("EatIn");
-                break; 
-            case "EatIn":
-                _animator.Play("EatOut");
-                break; 
-            case "EatOut":
-                _animator.Play("EatCameraUp");
-                break; 
-            case "EatCameraUp":
-                _isEating = false;
-                break;
-        }
+        Debug.Log("StopEating");
+        _isEating = false;
+        Debug.Log($"_isEating = {_isEating}");
     }
 }
