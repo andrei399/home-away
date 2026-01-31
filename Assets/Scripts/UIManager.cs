@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using Mono.Cecil.Cil;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour
 	private TMP_Text _endScreenBody;
 
 	private bool _won;
+
+    public ParticleSystem stinkyParticles;
 
 	private void Awake()
 	{
@@ -56,6 +59,9 @@ public class UIManager : MonoBehaviour
 	public void IncreaseFoodVirusAmount()
 	{
 		_foodVirusProgressBar.IncreaseBar(0.1f);
+		var maxParticles = 20; // should match what we have in inspector
+		var emissions = stinkyParticles.emission;
+        emissions.rateOverTime = maxParticles * _foodVirusProgressBar.ProgressBarImage.fillAmount;
 	}
 	
 	public void StartGame()

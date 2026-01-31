@@ -19,13 +19,15 @@ public class FoodManager : MonoBehaviour
 
     private Transform _selectedPlate;
     private Dictionary<DifficultyLevel, Transform> difficultyPlateMapper;
-    
+
 
     private Animator _animator;
+    private ParticleSystem _stinkyParticles;
 
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
+        _stinkyParticles = GetComponent<ParticleSystem>();
 
         getPlate();
         _selectedPlate.gameObject.SetActive(true);
@@ -33,15 +35,16 @@ public class FoodManager : MonoBehaviour
         for (int i = 0; i < _selectedPlate.childCount; i++)
         {
             _meatCubes.Add(_selectedPlate.GetChild(i).gameObject);
-        };
+        }
+        ;
         _activeMeatCubeCount = _meatCubes.Count;
 
         EatAnimationManager.OnEatingAnimationEnd += StopEating;
         EatAnimationManager.OnEatingAnimationEnter += TakeBite;
         EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
-   }
+    }
 
-   private Transform getPlate()
+    private Transform getPlate()
     {
         difficultyPlateMapper = new Dictionary<DifficultyLevel, Transform>{
             {DifficultyLevel.Easy, easyPlate},
@@ -49,7 +52,7 @@ public class FoodManager : MonoBehaviour
             {DifficultyLevel.Hard, hardPlate}
         };
 
-        _selectedPlate =  difficultyPlateMapper[GameManager.Instance.selectedDifficulty];
+        _selectedPlate = difficultyPlateMapper[GameManager.Instance.selectedDifficulty];
         Debug.Log(_selectedPlate);
         return _selectedPlate;
     }
@@ -73,12 +76,12 @@ public class FoodManager : MonoBehaviour
     public void ResetFood()
     {
         Debug.Log("Resetting Food");
-        foreach(var meatcube in _meatCubes)
+        foreach (var meatcube in _meatCubes)
         {
             meatcube.SetActive(true);
         }
         _activeMeatCubeCount = _meatCubes.Count;
-        canEatAgain = true; 
+        canEatAgain = true;
     }
 
     public void PlayEatingSoundEffect()
@@ -92,7 +95,8 @@ public class FoodManager : MonoBehaviour
         while (source.isPlaying)
         {
             yield return null;
-        };
+        }
+        ;
         canEatAgain = true;
         Debug.Log("Can Eat Again");
     }

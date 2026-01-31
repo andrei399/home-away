@@ -7,6 +7,7 @@ public class BaseProgressBar : MonoBehaviour
 {
 	[SerializeField]
 	private Image _progressBarImage;
+	public Image ProgressBarImage => _progressBarImage;
 
 	public event Action OnProgressBarFilled; 
 
