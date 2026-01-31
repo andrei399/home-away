@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f2376a389442fbb76786816eb4f837, type: 3}
   m_Name: SoundData
   m_EditorClassIdentifier: 
-  Sounds:
+  CoughSounds:
   - SoundType: 0
     SoundClip: {fileID: 8300000, guid: 42fbabf8ad5a99946882d8f39c1ea770, type: 3}
   - SoundType: 0
@@ -27,3 +27,26 @@ MonoBehaviour:
     SoundClip: {fileID: 8300000, guid: 824caff5805a52d40bed24a3398b4096, type: 3}
   - SoundType: 0
     SoundClip: {fileID: 8300000, guid: 3942991a8f1f56d4c99b9cb9926342b2, type: 3}
+  - SoundType: 0
+    SoundClip: {fileID: 8300000, guid: 7b6c9da043b63154884947d6e59aabc2, type: 3}
+  - SoundType: 0
+    SoundClip: {fileID: 8300000, guid: 2bd1b61ddf686234da2bb85ec997aded, type: 3}
+  - SoundType: 0
+    SoundClip: {fileID: 8300000, guid: 2bd1b61ddf686234da2bb85ec997aded, type: 3}
+  RandomSounds:
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: 17b863e26dd8ca3499fbbaca27de8e23, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: d0e8a66e6773d8447bcc649ba4cb8215, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: 9c9f5a7e7038cdc4bb296134b6201231, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: faef01d6e4689fb40b9dde1a133b1bf9, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: 5ad3ed55daae2f74b9b7c653355fc05b, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: d3f3b6629ea1e5943adb61135d44ce27, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: c14985d8488b7724286af15b8d94918a, type: 3}
+  - SoundType: 1
+    SoundClip: {fileID: 8300000, guid: 1176e94278c9d4e45889654b40021ba3, type: 3}
