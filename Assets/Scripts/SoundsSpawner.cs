@@ -15,9 +15,19 @@ public class SoundsSpawner
 
 	public bool PlayRandomSound()
 	{
-		int randomSound = Random.Range(0, SoundData.Sounds.Length);
-		Sound sound = SoundData.Sounds[randomSound];
-        _audioSource.PlayOneShot(sound.SoundClip);
-        return sound.SoundType == SoundType.Cough;
+		bool useCoughSounds = Random.Range(0, 2) == 0;
+
+		if (useCoughSounds)
+		{
+			Debug.Log("CoughSound!");
+		} else
+		{
+			Debug.Log("Random sound");
+		}
+		Sound[] chosenArray = useCoughSounds ? SoundData.CoughSounds : SoundData.RandomSounds;
+		
+		int index = Random.Range(0, chosenArray.Length);
+        _audioSource.PlayOneShot(chosenArray[index].SoundClip);
+        return chosenArray[index].SoundType == SoundType.Harmful;
 	}
 }

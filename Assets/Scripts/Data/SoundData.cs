@@ -6,7 +6,10 @@ namespace Data
 	public class SoundData : ScriptableObject
 	{
 		[field: SerializeField]
-		public Sound[] Sounds;
+		public Sound[] CoughSounds;
+		
+		[field: SerializeField]
+		public Sound[] RandomSounds;
 	}
 }
 
@@ -19,6 +22,6 @@ public struct Sound
 
 public enum SoundType
 {
-	Cough,
+	Harmful,
 	NotHarmful
 }
