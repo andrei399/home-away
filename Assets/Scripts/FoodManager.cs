@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class FoodManager : MonoBehaviour
@@ -10,15 +10,21 @@ public class FoodManager : MonoBehaviour
     private static List<GameObject> _meatCubes = new List<GameObject>();
     private static int _activeMeatCubeCount;
 
+    public bool isEating = false;
+    public bool canEatAgain = true;
+
+    private Animator _animator;
+
     private void Awake()
     {
+        _animator = GetComponentInParent<Animator>();
         for (int i = 0; i < transform.childCount; i++)
         {
             _meatCubes.Add(transform.GetChild(i).gameObject);
         };
         _activeMeatCubeCount = _meatCubes.Count;
 
-        EatAnimationManager.OnEatingAnimationEnd += WinIfNoFoodRemains;
+        EatAnimationManager.OnEatingAnimationEnd += StopEating;
         EatAnimationManager.OnEatingAnimationEnter += TakeBite;
         EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
     }
@@ -47,10 +53,37 @@ public class FoodManager : MonoBehaviour
             meatcube.SetActive(true);
         }
         _activeMeatCubeCount = _meatCubes.Count;
+        canEatAgain = true; 
     }
 
     public void PlayEatingSoundEffect()
     {
-        GameManager.Instance.PlayEatingSound();
+        StartCoroutine(EatingSound());
+    }
+
+    private IEnumerator EatingSound()
+    {
+        var source = GameManager.Instance.PlayEatingSound();
+        while (source.isPlaying)
+        {
+            yield return null;
+        };
+        canEatAgain = true;
+        Debug.Log("Can Eat Again");
+    }
+
+    public void Eat()
+    {
+        Debug.Log("StartEating");
+        isEating = true;
+        canEatAgain = false;
+        _animator.Play("EatFull", 0, 0f);
+    }
+
+    private void StopEating()
+    {
+        Debug.Log("StopEating");
+        WinIfNoFoodRemains();
+        isEating = false;
     }
 }

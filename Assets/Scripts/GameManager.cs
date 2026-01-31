@@ -93,8 +93,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayEatingSound()
+    public AudioSource PlayEatingSound()
     {
-        _soundsSpawner.PlaySound(_soundsSpawner.SoundData.EatingSound);
+        return _soundsSpawner.PlaySound(_soundsSpawner.SoundData.EatingSound);
     }
 }

@@ -15,12 +15,11 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        EatAnimationManager.OnEatingAnimationEnd += StopEating;
     }
 
     private void Update()
     {
-        if (Inputs.Instance.MaskOn.IsPressed() && !_isEating && !_maskOnFace)
+        if (Inputs.Instance.MaskOn.IsPressed() && !FoodManager.Instance.isEating && !_maskOnFace)
         {
             _maskOnFace = true;
             MaskOn();
@@ -33,9 +32,9 @@ public class Player : MonoBehaviour
             MaskOff();
         }
 
-        if (Inputs.Instance.Eat.IsPressed() && !_isEating && !_maskOnFace)
+        if (Inputs.Instance.Eat.IsPressed() && FoodManager.Instance.canEatAgain && !_maskOnFace)
         {
-            Eat();
+            FoodManager.Instance.Eat();
         }
         
     }
@@ -52,18 +51,5 @@ public class Player : MonoBehaviour
         Debug.Log("Mask Off!");
         _animator.Play("MaskOFF");
         MaskState?.Invoke(false);
-    }
-    
-    private void Eat()
-    {
-        _isEating = true;
-        Debug.Log("StartEating");
-        _animator.Play("EatFull", 0, 0f);
-    }
-
-    private void StopEating()
-    {
-        Debug.Log("StopEating");
-        _isEating = false;
     }
 }
