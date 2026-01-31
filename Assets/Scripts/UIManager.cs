@@ -16,16 +16,18 @@ public class UIManager : MonoBehaviour
 
 	private void Awake()
 	{
-		_covidProgressBar.OnProgressBarFilled += HandleCovidBarFull;
+		_covidProgressBar.OnProgressBarFilled += TriggerGameOver;
+		_foodVirusProgressBar.OnProgressBarFilled += TriggerGameOver;
 		_uiAnimator = GetComponent<Animator>();
 	}
 
 	private void OnDestroy()
 	{
-		_covidProgressBar.OnProgressBarFilled -= HandleCovidBarFull;
+		_covidProgressBar.OnProgressBarFilled -= TriggerGameOver;
+		_foodVirusProgressBar.OnProgressBarFilled -= TriggerGameOver;
 	}
 
-	private void HandleCovidBarFull()
+	private void TriggerGameOver()
 	{
 		GameManager.Instance.GameOver();
 		_uiAnimator.Play("GameOverFadeIn");
@@ -46,6 +48,7 @@ public class UIManager : MonoBehaviour
 	{
 		Debug.Log("Retry");	
 		_covidProgressBar.ResetBar();
+		_foodVirusProgressBar.ResetBar();
 		_uiAnimator.Play("GameOverFadeOut");
 		GameManager.Instance.Retry();
 	}
