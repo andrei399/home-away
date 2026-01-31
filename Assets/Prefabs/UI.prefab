@@ -946,8 +946,8 @@ CanvasGroup:
   m_GameObject: {fileID: 4715682030453201254}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &4717631550350351231
 GameObject:
@@ -1316,7 +1316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _covidProgressBar: {fileID: 2569166355055958377}
-  _foodVirusProgressBar: {fileID: 0}
+  _foodVirusProgressBar: {fileID: 8961690916789985035}
+  _mainMenu: {fileID: 7108885162447692012}
 --- !u!95 &3980459016716473246
 Animator:
   serializedVersion: 7
