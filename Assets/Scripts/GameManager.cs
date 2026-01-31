@@ -2,6 +2,13 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum DifficultyLevel
+{
+    Easy,
+    Medium,
+    Hard,
+}
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager s_Instance;
@@ -18,6 +25,9 @@ public class GameManager : MonoBehaviour
     private bool _isMaskOn;
 
     private float _putMaskOnInterval;
+
+    public DifficultyLevel selectedDifficulty = DifficultyLevel.Easy;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();

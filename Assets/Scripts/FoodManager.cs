@@ -13,20 +13,45 @@ public class FoodManager : MonoBehaviour
     public bool isEating = false;
     public bool canEatAgain = true;
 
+    public Transform easyPlate;
+    public Transform mediumPlate;
+    public Transform hardPlate;
+
+    private Transform _selectedPlate;
+    private Dictionary<DifficultyLevel, Transform> difficultyPlateMapper;
+    
+
     private Animator _animator;
 
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
-        for (int i = 0; i < transform.childCount; i++)
+
+        getPlate();
+        _selectedPlate.gameObject.SetActive(true);
+
+        for (int i = 0; i < _selectedPlate.childCount; i++)
         {
-            _meatCubes.Add(transform.GetChild(i).gameObject);
+            _meatCubes.Add(_selectedPlate.GetChild(i).gameObject);
         };
         _activeMeatCubeCount = _meatCubes.Count;
 
         EatAnimationManager.OnEatingAnimationEnd += StopEating;
         EatAnimationManager.OnEatingAnimationEnter += TakeBite;
         EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
+   }
+
+   private Transform getPlate()
+    {
+        difficultyPlateMapper = new Dictionary<DifficultyLevel, Transform>{
+            {DifficultyLevel.Easy, easyPlate},
+            {DifficultyLevel.Medium, mediumPlate},
+            {DifficultyLevel.Hard, hardPlate}
+        };
+
+        _selectedPlate =  difficultyPlateMapper[GameManager.Instance.selectedDifficulty];
+        Debug.Log(_selectedPlate);
+        return _selectedPlate;
     }
 
     public void WinIfNoFoodRemains()
