@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class EatAnimationManager : MonoBehaviour
 {
-    public static event Action OnEatingAnimationEnd;
+    public static event Action<string> OnAnimationEnd;
 
-    public void TriggerAnimationEnd()
+    public void TriggerAnimationEnd(string animationName)
     {
-        OnEatingAnimationEnd?.Invoke();
+        OnAnimationEnd?.Invoke(animationName);
     }
 }
