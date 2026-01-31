@@ -37,6 +37,11 @@ public class UIManager : MonoBehaviour
 		_covidProgressBar.IncreaseBar(0.7f);
 	}
 
+	public void IncreaseFoodVirusAmount()
+	{
+		_foodVirusProgressBar.IncreaseBar(0.7f);
+	}
+
 	public void RetryPressed()
 	{
 		Debug.Log("Retry");	

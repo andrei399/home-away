@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator TimeToPutMaskOn()
     {
         yield return new WaitForSeconds(_putMaskOnInterval);
+        UIManager.Instance.IncreaseFoodVirusAmount();
         if (_isMaskOn)
         {
             Debug.Log("Mask was on, nice job!");
