@@ -4,6 +4,11 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager s_Instance;
+    public static GameManager Instance => s_Instance ??= FindFirstObjectByType<GameManager>();
+
+    private bool _gameRunning = true;
+    
     [SerializeField]
     private Player _player;
     
@@ -25,6 +30,10 @@ public class GameManager : MonoBehaviour
     private float _timer = 0f;
     private void Update()
     {
+        if (!_gameRunning)
+        {
+            return;
+        }
         _timer += Time.deltaTime;
 
         if (_timer >= _soundSpawnInterval)
@@ -43,6 +52,19 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    public void GameOver()
+    {
+        Debug.Log("PROGRESS BAR FILLED");
+        _gameRunning = false;
+    }
+
+    public void Retry()
+    {
+        _gameRunning = true;
+        _soundSpawnInterval = Random.Range(2f, 6f);
+        _timer = 0;
+    }
     
     private void HandleMaskState(bool isMaskOn)
     {
@@ -59,6 +81,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Mask was off, covid meter increased");
+            UIManager.Instance.IncreaseCovidAmount();
         }
     }
 }
