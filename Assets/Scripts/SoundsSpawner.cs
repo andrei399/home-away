@@ -22,4 +22,9 @@ public class SoundsSpawner
         _audioSource.PlayOneShot(chosenArray[index].SoundClip);
         return chosenArray[index].SoundType == SoundType.Harmful;
 	}
+
+	public void PlaySound(AudioClip sound)
+	{
+		_audioSource.PlayOneShot(sound);
+	}
 }

@@ -92,4 +92,9 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.IncreaseCovidAmount();
         }
     }
+
+    public void PlayEatingSound()
+    {
+        _soundsSpawner.PlaySound(_soundsSpawner.SoundData.EatingSound);
+    }
 }

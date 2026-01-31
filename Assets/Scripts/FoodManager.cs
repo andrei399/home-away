@@ -20,6 +20,7 @@ public class FoodManager : MonoBehaviour
 
         EatAnimationManager.OnEatingAnimationEnd += WinIfNoFoodRemains;
         EatAnimationManager.OnEatingAnimationEnter += TakeBite;
+        EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
     }
 
     public void WinIfNoFoodRemains()
@@ -46,5 +47,10 @@ public class FoodManager : MonoBehaviour
             meatcube.SetActive(true);
         }
         _activeMeatCubeCount = _meatCubes.Count;
+    }
+
+    public void PlayEatingSoundEffect()
+    {
+        GameManager.Instance.PlayEatingSound();
     }
 }

@@ -10,6 +10,9 @@ namespace Data
 		
 		[field: SerializeField]
 		public Sound[] RandomSounds;
+
+		[field: SerializeField]
+		public AudioClip EatingSound;
 	}
 }
 

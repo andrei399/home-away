@@ -50,3 +50,4 @@ MonoBehaviour:
     SoundClip: {fileID: 8300000, guid: c14985d8488b7724286af15b8d94918a, type: 3}
   - SoundType: 1
     SoundClip: {fileID: 8300000, guid: 1176e94278c9d4e45889654b40021ba3, type: 3}
+  EatingSound: {fileID: 8300000, guid: bc73e110bf36c4c4d961c934a612eb6c, type: 3}

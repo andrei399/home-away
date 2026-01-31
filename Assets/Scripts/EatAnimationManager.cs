@@ -5,7 +5,8 @@ public class EatAnimationManager : MonoBehaviour
 {
     public static event Action OnEatingAnimationEnter;
     public static event Action OnEatingAnimationEnd;
-
+    public static event Action OnAteFood;
+    
     public void TriggerAnimationEnd()
     {
         OnEatingAnimationEnd?.Invoke();
@@ -14,5 +15,10 @@ public class EatAnimationManager : MonoBehaviour
     public void TriggerAnimationEnter()
     {
         OnEatingAnimationEnter?.Invoke();
+    }
+
+    public void TriggerAteFood()
+    {
+        OnAteFood?.Invoke();
     }
 }
