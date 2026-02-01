@@ -22,12 +22,10 @@ public class FoodManager : MonoBehaviour
 
 
     private Animator _animator;
-    private ParticleSystem _stinkyParticles;
 
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
-        _stinkyParticles = GetComponent<ParticleSystem>();
 
         getPlate();
         _selectedPlate.gameObject.SetActive(true);
