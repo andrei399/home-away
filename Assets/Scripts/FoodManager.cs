@@ -44,10 +44,6 @@ public class FoodManager : MonoBehaviour
         
         _selectedPlate.gameObject.SetActive(true);
         
-        for (int i = 0; i < _selectedPlate.childCount; i++)
-        {
-            _meatCubes.Add(_selectedPlate.GetChild(i).gameObject);
-        }
 
         _activeMeatCubeCount = _meatCubes.Count;
 
@@ -94,9 +90,11 @@ public class FoodManager : MonoBehaviour
     public void ResetFood()
     {
         Debug.Log("Resetting Food");
-        foreach (var meatcube in _meatCubes)
+        for (int i = 0; i < _selectedPlate.childCount; i++)
         {
-            meatcube.SetActive(true);
+            var cube = _selectedPlate.GetChild(i).gameObject;
+            _meatCubes.Add(_selectedPlate.GetChild(i).gameObject);
+            cube.SetActive(true);
         }
         _activeMeatCubeCount = _meatCubes.Count;
         canEatAgain = true;
