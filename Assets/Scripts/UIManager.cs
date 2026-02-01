@@ -84,7 +84,6 @@ public class UIManager : MonoBehaviour
 	{
 		_mainMenu.SetActive(false);
 		GameManager.Instance.Retry();
-		StartCoroutine(AmbientMusic.Instance.PlayAudioSequentially());
 		ChangeProgressBarStates(true);
 		
 		_covidProgressBar.ResetBar();

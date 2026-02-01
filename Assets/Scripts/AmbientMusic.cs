@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,25 +10,30 @@ public class AmbientMusic : MonoBehaviour
 
 	private AudioSource _audioSource;
 
+	private Coroutine _playAmbientCoroutine;
+
 	private void Awake()
 	{
 		_audioSource = GetComponent<AudioSource>();
+		StartCoroutine(PlayAudioSequentially());
 	}
 
-	public IEnumerator PlayAudioSequentially()
+	private IEnumerator PlayAudioSequentially()
 	{
-		yield return null;
+		if (_clips == null || _clips.Length == 0)
+		{
+			yield break;
+		}
+		int i = 0;
 
-		for (int i = 0; i < _clips.Length; i++)
+		while (true)
 		{
 			_audioSource.clip = _clips[i];
-
 			_audioSource.Play();
 
-			while (_audioSource.isPlaying)
-			{
-				yield return null;
-			}
+			yield return new WaitWhile(() => _audioSource.isPlaying);
+
+			i = (i + 1) % _clips.Length;
 		}
 	}
 
