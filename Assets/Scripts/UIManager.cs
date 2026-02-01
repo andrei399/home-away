@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
 		_covidProgressBar.OnProgressBarFilled += TriggerGameOver;
 		_foodVirusProgressBar.OnProgressBarFilled += TriggerGameOver;
 		_uiAnimator = GetComponent<Animator>();
+		ChangeProgressBarStates(false);
 	}
 
 	private void OnDestroy()
@@ -49,6 +50,7 @@ public class UIManager : MonoBehaviour
 		_endScreenBody.SetText("Your abuelita is going to miss you while you're in quarantine.\n Pay 50 robux for quick heal and try again?");
 		_uiAnimator.Play("GameOverFadeIn");
 		Debug.Log("GAME OVER!");
+		ChangeProgressBarStates(false);
 	}
 
 	public void IncreaseCovidAmount()
@@ -69,6 +71,7 @@ public class UIManager : MonoBehaviour
 		_mainMenu.SetActive(false);
 		GameManager.Instance.Retry();
 		StartCoroutine(AmbientMusic.Instance.PlayAudioSequentially());
+		ChangeProgressBarStates(true);
 	}
 
 	public void Quit()
@@ -83,6 +86,7 @@ public class UIManager : MonoBehaviour
 		_foodVirusProgressBar.ResetBar();
 		_uiAnimator.Play("GameOverFadeOut");
 		GameManager.Instance.Retry();
+		ChangeProgressBarStates(true);
 	}
 
 	public void TriggerGameWon()
@@ -90,5 +94,12 @@ public class UIManager : MonoBehaviour
 		_endScreenTitle.SetText("Congratulations! You finished your meal.");
 		_endScreenBody.SetText("You can now go back to your abuelita and keep her safe <3 ! \n Try another meal in these hard times?");
 		_uiAnimator.Play("GameOverFadeIn");
+		ChangeProgressBarStates(false);
+	}
+
+	private void ChangeProgressBarStates(bool enabled)
+	{
+		_covidProgressBar.gameObject.SetActive(enabled);
+		_foodVirusProgressBar.gameObject.SetActive(enabled);
 	}
 }

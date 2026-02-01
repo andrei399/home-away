@@ -53,12 +53,13 @@ public class GameManager : MonoBehaviour
             _soundSpawnInterval = Random.Range(2f, 6f);
             if (_soundsSpawner.PlayRandomSound())
             {
-                Debug.Log("GAMEMANAGER - MASK ON BOY");
+                _audioSource.volume = 1f;
+                NPCManager.Instance.CoughAnimation();
                 StartCoroutine(TimeToPutMaskOn());
             } 
             else
             {
-                Debug.Log("GAMEMANAGER - MASK OFF BOY");
+                _audioSource.volume = 0.25f;
             }
         }
         
