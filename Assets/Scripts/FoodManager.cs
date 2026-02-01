@@ -26,30 +26,43 @@ public class FoodManager : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
+        SetPlates();
+        
+        EatAnimationManager.OnEatingAnimationEnd += StopEating;
+        EatAnimationManager.OnEatingAnimationEnter += TakeBite;
+        EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
 
+        
+    }
+
+    public void SetPlates()
+    {
         getPlate();
+        
         _selectedPlate.gameObject.SetActive(true);
-
+        
         for (int i = 0; i < _selectedPlate.childCount; i++)
         {
             _meatCubes.Add(_selectedPlate.GetChild(i).gameObject);
         }
-        ;
-        _activeMeatCubeCount = _meatCubes.Count;
 
-        EatAnimationManager.OnEatingAnimationEnd += StopEating;
-        EatAnimationManager.OnEatingAnimationEnter += TakeBite;
-        EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
+        _activeMeatCubeCount = _meatCubes.Count;
     }
 
     private Transform getPlate()
     {
+        
         difficultyPlateMapper = new Dictionary<DifficultyLevel, Transform>{
             {DifficultyLevel.Easy, easyPlate},
             {DifficultyLevel.Medium, mediumPlate},
             {DifficultyLevel.Hard, hardPlate}
         };
 
+        foreach (KeyValuePair<DifficultyLevel,Transform> difficulties in difficultyPlateMapper)
+        {
+            difficulties.Value.gameObject.SetActive(false);
+        }
+        
         _selectedPlate = difficultyPlateMapper[GameManager.Instance.selectedDifficulty];
         Debug.Log(_selectedPlate);
         return _selectedPlate;

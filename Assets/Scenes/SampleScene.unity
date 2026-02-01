@@ -8717,7 +8717,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.025
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -9042,6 +9042,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 782918329}
+    - target: {fileID: 3432563889793706433, guid: 485cd8967698d9a408dd261f7c03db05, type: 3}
+      propertyPath: _musicSource
+      value: 
+      objectReference: {fileID: 1247689980}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9433,10 +9437,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8494349471296577240, guid: 419017b529f0be848951ec422eefb5dc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8712428908729955871, guid: 419017b529f0be848951ec422eefb5dc, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

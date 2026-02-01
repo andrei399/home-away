@@ -2,6 +2,7 @@ using DefaultNamespace;
 using Mono.Cecil.Cil;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -25,6 +26,16 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private TMP_Text _endScreenBody;
 
+	[SerializeField]
+	private Slider _sfxSlider;
+
+	[SerializeField]
+	private Slider _musicSlider;
+	public Slider MusicSlider => _musicSlider;
+
+	[field:SerializeField]
+	public TMP_Dropdown DifficultyDropdown { get; private set; }
+
 	private bool _won;
 
     public ParticleSystem stinkyParticles;
@@ -35,12 +46,16 @@ public class UIManager : MonoBehaviour
 		_foodVirusProgressBar.OnProgressBarFilled += TriggerGameOver;
 		_uiAnimator = GetComponent<Animator>();
 		ChangeProgressBarStates(false);
+
+		_sfxSlider.onValueChanged.AddListener(SetSFXVolume);
 	}
 
 	private void OnDestroy()
 	{
 		_covidProgressBar.OnProgressBarFilled -= TriggerGameOver;
 		_foodVirusProgressBar.OnProgressBarFilled -= TriggerGameOver;
+		
+		_sfxSlider.onValueChanged.RemoveListener(SetSFXVolume);
 	}
 
 	private void TriggerGameOver()
@@ -95,6 +110,11 @@ public class UIManager : MonoBehaviour
 		_endScreenBody.SetText("You can now go back to your abuelita and keep her safe <3 ! \n Try another meal in these hard times?");
 		_uiAnimator.Play("GameOverFadeIn");
 		ChangeProgressBarStates(false);
+	}
+
+	private void SetSFXVolume(float value)
+	{
+		GameManager.Instance.SetSFXVolume(value);
 	}
 
 	private void ChangeProgressBarStates(bool enabled)

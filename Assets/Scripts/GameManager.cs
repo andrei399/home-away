@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public enum DifficultyLevel
 {
-    Easy,
-    Medium,
-    Hard,
+    Easy = 0,
+    Medium = 1,
+    Hard = 2,
 }
 
 public class GameManager : MonoBehaviour
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour
     
     [SerializeField]
     private Player _player;
+
+    [SerializeField]
+    private AudioSource _musicSource;
+
     
     private AudioSource _audioSource;
     private SoundsSpawner _soundsSpawner;
@@ -36,6 +41,15 @@ public class GameManager : MonoBehaviour
         _soundSpawnInterval = Random.Range(2f, 6f);
         _player.MaskState += HandleMaskState;
         _putMaskOnInterval = 1f;
+        UIManager.Instance.MusicSlider.onValueChanged.AddListener(SetMusicVolume);
+        UIManager.Instance.DifficultyDropdown.onValueChanged.AddListener(SetDifficulty);
+    }
+
+    private void SetDifficulty(int difficulty)
+    {
+        selectedDifficulty = (DifficultyLevel) difficulty;
+        Debug.Log($"Selected Difficulty = {difficulty}");
+        FoodManager.Instance.SetPlates();
     }
 
     private float _timer = 0f;
@@ -53,16 +67,20 @@ public class GameManager : MonoBehaviour
             _soundSpawnInterval = Random.Range(2f, 6f);
             if (_soundsSpawner.PlayRandomSound())
             {
-                _audioSource.volume = 1f;
                 NPCManager.Instance.CoughAnimation();
                 StartCoroutine(TimeToPutMaskOn());
             } 
             else
             {
-                _audioSource.volume = 0.25f;
+                _audioSource.volume /= 2;
             }
         }
         
+    }
+
+    private void OnDestroy()
+    {
+        UIManager.Instance.MusicSlider.onValueChanged.RemoveListener(SetMusicVolume);
     }
 
     public void GameOver()
@@ -109,5 +127,15 @@ public class GameManager : MonoBehaviour
     public AudioSource PlayEatingSound()
     {
         return _soundsSpawner.PlaySound(_soundsSpawner.SoundData.EatingSound);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        _audioSource.volume = value; 
+    }
+    
+    public void SetMusicVolume(float value)
+    {
+        _musicSource.volume = value; 
     }
 }
