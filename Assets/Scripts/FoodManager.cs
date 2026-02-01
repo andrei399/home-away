@@ -20,7 +20,7 @@ public class FoodManager : MonoBehaviour
     private Transform _selectedPlate;
     private Dictionary<DifficultyLevel, Transform> difficultyPlateMapper;
 
-
+    private Coroutine _eatSoundEffect;
     private Animator _animator;
 
     private void Awake()
@@ -31,8 +31,6 @@ public class FoodManager : MonoBehaviour
         EatAnimationManager.OnEatingAnimationEnd += StopEating;
         EatAnimationManager.OnEatingAnimationEnter += TakeBite;
         EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
-
-        
     }
 
     public void SetPlates()
@@ -97,17 +95,22 @@ public class FoodManager : MonoBehaviour
 
     public void PlayEatingSoundEffect()
     {
-        StartCoroutine(EatingSound());
+        if (_eatSoundEffect != null)
+        {
+            StopCoroutine(_eatSoundEffect);
+            _eatSoundEffect = null;
+        }
+        _eatSoundEffect = StartCoroutine(EatingSound());
     }
 
     private IEnumerator EatingSound()
     {
         var source = GameManager.Instance.PlayEatingSound();
+        yield return new WaitForEndOfFrame();
         while (source.isPlaying)
         {
             yield return null;
         }
-        ;
         canEatAgain = true;
         Debug.Log("Can Eat Again");
     }
