@@ -21,10 +21,11 @@ public class UIManager : MonoBehaviour
 	private GameObject _mainMenu;
 
 	[SerializeField]
-	private TMP_Text _endScreenTitle;
-
+	private GameObject _youLose;
+	
 	[SerializeField]
-	private TMP_Text _endScreenBody;
+	private GameObject _youWin;
+	
 
 	[SerializeField]
 	private Slider _sfxSlider;
@@ -60,11 +61,9 @@ public class UIManager : MonoBehaviour
 
 	private void TriggerGameOver()
 	{
-		GameManager.Instance.GameOver();
-		_endScreenTitle.SetText("Unfortunate :( you got the damn virus.");
-		_endScreenBody.SetText("Your abuelita is going to miss you while you're in quarantine.\n Pay 50 robux for quick heal and try again?");
-		_uiAnimator.Play("GameOverFadeIn");
 		Debug.Log("GAME OVER!");
+		GameManager.Instance.GameOver();
+		_youLose.SetActive(true);
 		ChangeProgressBarStates(false);
 	}
 
@@ -87,6 +86,9 @@ public class UIManager : MonoBehaviour
 		GameManager.Instance.Retry();
 		StartCoroutine(AmbientMusic.Instance.PlayAudioSequentially());
 		ChangeProgressBarStates(true);
+		
+		_covidProgressBar.ResetBar();
+		_foodVirusProgressBar.ResetBar();
 	}
 
 	public void Quit()
@@ -94,21 +96,9 @@ public class UIManager : MonoBehaviour
 		Application.Quit();
 	}
 
-	public void RetryPressed()
-	{
-		Debug.Log("Retry");	
-		_covidProgressBar.ResetBar();
-		_foodVirusProgressBar.ResetBar();
-		_uiAnimator.Play("GameOverFadeOut");
-		GameManager.Instance.Retry();
-		ChangeProgressBarStates(true);
-	}
-
 	public void TriggerGameWon()
 	{
-		_endScreenTitle.SetText("Congratulations! You finished your meal.");
-		_endScreenBody.SetText("You can now go back to your abuelita and keep her safe <3 ! \n Try another meal in these hard times?");
-		_uiAnimator.Play("GameOverFadeIn");
+		_youWin.SetActive(true);
 		ChangeProgressBarStates(false);
 	}
 
