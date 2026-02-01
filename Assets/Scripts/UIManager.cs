@@ -101,5 +101,7 @@ public class UIManager : MonoBehaviour
 	{
 		_covidProgressBar.gameObject.SetActive(enabled);
 		_foodVirusProgressBar.gameObject.SetActive(enabled);
+		var emissions = stinkyParticles.emission;
+        emissions.rateOverTime = 0;
 	}
 }
