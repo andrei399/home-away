@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         _soundSpawnInterval = Random.Range(2f, 6f);
         _player.MaskState += HandleMaskState;
         _putMaskOnInterval = 1f;
+        SetMusicVolume(1);
         UIManager.Instance.MusicSlider.onValueChanged.AddListener(SetMusicVolume);
         UIManager.Instance.DifficultyDropdown.onValueChanged.AddListener(SetDifficulty);
     }
@@ -136,6 +137,6 @@ public class GameManager : MonoBehaviour
     
     public void SetMusicVolume(float value)
     {
-        _musicSource.volume = value; 
+        _musicSource.volume = value * 0.5f; 
     }
 }
