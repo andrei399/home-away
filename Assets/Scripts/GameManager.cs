@@ -137,6 +137,6 @@ public class GameManager : MonoBehaviour
     
     public void SetMusicVolume(float value)
     {
-        _musicSource.volume = value * 0.5f; 
+        _musicSource.volume = value * 0.25f; 
     }
 }

@@ -23,18 +23,23 @@ public class FoodManager : MonoBehaviour
     private Coroutine _eatSoundEffect;
     private Animator _animator;
 
+    private AudioSource audioSource;
+
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         SetPlates();
         
-        EatAnimationManager.OnEatingAnimationEnd += StopEating;
-        EatAnimationManager.OnEatingAnimationEnter += TakeBite;
-        EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
     }
 
     public void SetPlates()
     {
+        EatAnimationManager.OnEatingAnimationEnd -= StopEating;
+        EatAnimationManager.OnEatingAnimationEnter -= TakeBite;
+        EatAnimationManager.OnAteFood -= PlayEatingSoundEffect;
+
         getPlate();
         
         _selectedPlate.gameObject.SetActive(true);
@@ -45,6 +50,10 @@ public class FoodManager : MonoBehaviour
         }
 
         _activeMeatCubeCount = _meatCubes.Count;
+
+        EatAnimationManager.OnEatingAnimationEnd += StopEating;
+        EatAnimationManager.OnEatingAnimationEnter += TakeBite;
+        EatAnimationManager.OnAteFood += PlayEatingSoundEffect;
     }
 
     private Transform getPlate()
@@ -105,9 +114,9 @@ public class FoodManager : MonoBehaviour
 
     private IEnumerator EatingSound()
     {
-        var source = GameManager.Instance.PlayEatingSound();
+        audioSource.Play();
         yield return new WaitForEndOfFrame();
-        while (source.isPlaying)
+        while (audioSource.isPlaying)
         {
             yield return null;
         }
