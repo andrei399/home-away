@@ -90,6 +90,7 @@ public class FoodManager : MonoBehaviour
     public void ResetFood()
     {
         Debug.Log("Resetting Food");
+        _meatCubes.Clear();
         for (int i = 0; i < _selectedPlate.childCount; i++)
         {
             var cube = _selectedPlate.GetChild(i).gameObject;

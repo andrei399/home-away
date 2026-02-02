@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
             _soundSpawnInterval = Random.Range(2f, 6f);
             if (_soundsSpawner.PlayRandomSound())
             {
+                _audioSource.volume = 1;
                 NPCManager.Instance.CoughAnimation();
                 StartCoroutine(TimeToPutMaskOn());
             } 
